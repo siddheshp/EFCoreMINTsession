@@ -9,5 +9,10 @@ namespace EFCoreConApp.Models.Entities
         public string ShipCity { get; set; }
         public string ShipCountry { get; set; }
         public string CustomerID { get; set; }
+        public override string ToString()
+        {
+            return $"Order ID: {OrderID}, OrderDate: {OrderDate}, ShipCity: {ShipCity}," +
+                "ShipCountry: {ShipCountry}, Country: {Country} ";
+        }
     }
 }
