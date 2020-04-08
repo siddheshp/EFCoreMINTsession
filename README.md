@@ -9,7 +9,8 @@
 - dotnet add package Microsoft.Extensions.Configuration.CommandLine --version 3.1.3
 - dotnet add package Microsoft.Extensions.Configuration.FileExtensions --version 3.1.3
 - dotnet add package Microsoft.Extensions.DependencyInjection --version 3.1.3
-- dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+- dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.1.3
+- dotnet add package Microsoft.Extensions.Logging.Console --version 3.1.3
 
 #### Git branch
 

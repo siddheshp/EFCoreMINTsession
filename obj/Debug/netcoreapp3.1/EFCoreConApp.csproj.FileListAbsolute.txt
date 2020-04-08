@@ -50,3 +50,6 @@ D:\Technical\Training\EntityFramework\Mintsession\EFCoreConApp\bin\Debug\netcore
 D:\Technical\Training\EntityFramework\Mintsession\EFCoreConApp\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 D:\Technical\Training\EntityFramework\Mintsession\EFCoreConApp\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 D:\Technical\Training\EntityFramework\Mintsession\EFCoreConApp\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\Technical\Training\EntityFramework\Mintsession\EFCoreConApp\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Configuration.dll
+D:\Technical\Training\EntityFramework\Mintsession\EFCoreConApp\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Console.dll
+D:\Technical\Training\EntityFramework\Mintsession\EFCoreConApp\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Options.ConfigurationExtensions.dll

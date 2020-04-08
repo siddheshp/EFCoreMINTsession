@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using EFCoreConApp.Models;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,7 +36,7 @@ namespace EFCoreConApp
             });
             serviceCollection.AddSingleton<NorthWindContext>();
 
-            return  serviceCollection.BuildServiceProvider();
+            return serviceCollection.BuildServiceProvider();
         }
         static void Main(string[] args)
         {
@@ -43,13 +44,102 @@ namespace EFCoreConApp
             ServiceProvider serviceProvider = ConfigureService(configuration);
             var context = serviceProvider.GetService<NorthWindContext>();
 
+            #region Raw queries
+            #region regulr query
+            // var country = "USA";
+            // var customers = context.Customers
+            // .FromSqlRaw($"select * from Customers where country = '{country}'").ToList();
+            #endregion
+
+            #region SQL parameter
+            // var country = new SqlParameter("@country", "USA");
+            // var customers = context.Customers
+            // .FromSqlRaw($"select * from Customers where country = @country", country).ToList();
+            #endregion
+            #endregion
+
             #region All customers
-            var customers  = context.Customers.ToList();    
+            //var customers = context.Customers.ToList();
+            // foreach (var customer in customers)
+            // {
+            //     Console.WriteLine(customer);
+            // }
+            #endregion
+
+            #region Get All customers from London
+            // var customers = context.Customers.Where(c => c.City == "London")
+            //                 .ToList();
+            // foreach (var customer in customers)
+            // {
+            //     Console.WriteLine(customer);
+            // }
+            #endregion
+
+            #region query expression
+            // var customers = from c in context.Customers
+            //                 where c.City == "London"
+            //                 select new
+            //                 {
+            //                     c.CustomerID,
+            //                     c.CompanyName,
+            //                     c.ContactName
+            //                 };
+
+            // foreach (var customer in customers)
+            // {
+            //     Console.WriteLine(customer);
+            // }
+            #endregion
+
+            #region Get all odres for customer with ID = ALFKI
+            // var customers = context.Orders.Where(o => o.CustomerID == "ALFKI").ToList();
+            // foreach (var customer in customers)
+            // {
+            //     Console.WriteLine(customer);
+            // }
+            #endregion
+
+            #region Get all orders for customer with ID=ALFKI and company name
+            // var customers = (from o in context.Orders
+            //                 where o.CustomerID == "ALFKI"
+            //                 join c in context.Customers on o.CustomerID equals c.CustomerID
+            //                 select new {
+            //                     o.CustomerID,
+            //                     o.ShipCity,
+            //                     c.CompanyName
+            //                 }).ToList();
+
+            // foreach (var customer in customers)
+            // {
+            //     Console.WriteLine(customer);
+            // }
+            #endregion
+
+            #region Get all customers from Lodon with their ID and No. of Orders
+            // var customers = (from c in context.Customers
+            //                  where c.City == "London"
+            //                  join o in context.Orders on c.CustomerID equals o.CustomerID
+            //                  group o by o.CustomerID into group1
+            //                  select new
+            //                  {
+            //                      CustomerID = group1.Key,
+            //                      NumOfOrders = group1.Count()
+            //                  }).ToList();
+
+            var customers = context.Customers.Where(c => c.City == "London")
+                            .Join(context.Orders, c => c.CustomerID, o => o.CustomerID,
+                                (c, o) => new { c, o })
+                                .GroupBy(c => c.c.CustomerID, o => o.o)
+                                .Select(g => new { CustomerID = g.Key, NumOrders = g.Count() })
+                            .ToList();
+
             foreach (var customer in customers)
             {
                 Console.WriteLine(customer);
             }
             #endregion
+
+            
         }
     }
 }
