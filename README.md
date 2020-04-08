@@ -19,4 +19,3 @@
 - 3) Service Config
 - 4) Querying data
 - 5) DML Concurrency
-- 6) Second DI
