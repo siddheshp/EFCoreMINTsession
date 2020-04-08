@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using EFCoreConApp.Models;
+using EFCoreConApp.Models.Entities;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -126,20 +127,103 @@ namespace EFCoreConApp
             //                      NumOfOrders = group1.Count()
             //                  }).ToList();
 
-            var customers = context.Customers.Where(c => c.City == "London")
-                            .Join(context.Orders, c => c.CustomerID, o => o.CustomerID,
-                                (c, o) => new { c, o })
-                                .GroupBy(c => c.c.CustomerID, o => o.o)
-                                .Select(g => new { CustomerID = g.Key, NumOrders = g.Count() })
-                            .ToList();
+            // var customers = context.Customers.Where(c => c.City == "London")
+            //                 .Join(context.Orders, c => c.CustomerID, o => o.CustomerID,
+            //                     (c, o) => new { c, o })
+            //                     .GroupBy(c => c.c.CustomerID, o => o.o)
+            //                     .Select(g => new { CustomerID = g.Key, NumOrders = g.Count() })
+            //                 .ToList();
 
-            foreach (var customer in customers)
-            {
-                Console.WriteLine(customer);
-            }
+            // foreach (var customer in customers)
+            // {
+            //     Console.WriteLine(customer);
+            // }
             #endregion
 
-            
+            #region Add new Customer
+            // Customer customer1 = new Customer
+            // {
+            //     CustomerID = "PRM",
+            //     CompanyName = "Abhyudaya",
+            //     ContactName = "Param",
+            //     City = "Goa",
+            //     Country = "India"
+            // };
+            // context.Customers.Add(customer1);
+            // try
+            // {
+            //     var result = context.SaveChanges();
+            //     if (result == 1)
+            //     {
+            //         Console.WriteLine("Customer added successfully");
+            //     }
+            //     else
+            //     {
+            //         Console.WriteLine("Add Customer failed");
+            //     }
+            // }
+            // catch (System.Exception ex)
+            // {
+            //     Console.WriteLine(ex.Message);
+            // }
+
+            #endregion
+
+            #region Edit customer, handle concurrency
+            // var customer = context.Customers.FirstOrDefault(c => c.CustomerID == "PRM");
+
+            // customer.CompanyName = "Prabhugaonkar Group of companies";
+
+            // try
+            // {
+            //     var result = context.SaveChanges();
+            //     if (result == 1)
+            //     {
+            //         Console.WriteLine("Customer added successfully");
+            //     }
+            //     else
+            //     {
+            //         Console.WriteLine("Add Customer failed");
+            //     }
+            // }
+            // catch (DbUpdateConcurrencyException ex)
+            // {
+            //     foreach (var item in ex.Entries)
+            //     {
+            //         if (item.Entity is Customer)
+            //         {
+            //             var proposedValues = item.CurrentValues;
+            //             var databaseValues = item.GetDatabaseValues();
+
+            //             foreach (var property in proposedValues.Properties)
+            //             {
+            //                 var pValue = proposedValues[property];
+            //                 var dValue = databaseValues[property];
+            //                 Console.WriteLine($"pValue: {pValue}, dValue: {dValue}");
+            //             }
+
+            //             item.OriginalValues.SetValues(databaseValues);
+            //             int recordsAffected = context.SaveChanges();
+            //             if (recordsAffected == 1)
+            //             {
+            //                 Console.WriteLine("Updated after concurrency");
+            //             }
+            //             else
+            //             {
+            //                 Console.WriteLine("Update failed after concurrency");
+            //             }
+            //         }
+            //     }
+            // }
+            // catch (System.Exception ex)
+            // {
+            //     Console.WriteLine(ex.Message);
+            // }
+            #endregion
+
+            #region delete customer
+                
+            #endregion
         }
     }
 }
